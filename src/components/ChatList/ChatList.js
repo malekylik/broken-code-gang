@@ -3,7 +3,7 @@ import { InstanceSummaryElement } from '../InstanceSummaryElement/InstanceSummar
 import './ChatList.css';
 import { InfiniteRooms } from '../InfiniteRooms/InfiniteRooms';
 import { connect } from 'react-redux';
-import { routeNavigation } from '../../actions/route';
+import routeNavigation from '../../actions/route';
 import api from '../../api';
 import { createDateStamp } from '../../helpers/createDateStamp';
 
@@ -14,15 +14,16 @@ const stateToProps = state => ({
 
 export const ChatList = connect(stateToProps)(class ChatList extends React.Component {
     async enterRoom(roomId) {
-        const users = await api.getUsersOfRoom(roomId),
-            usersName = {};
-        users.items.forEach(user => {
-            usersName[user._id]=user.name;
+        const users = await api.getUsersOfRoom(roomId);
+        const usersName = {};
+                    
+        users.items.forEach((user) => {
+            usersName[user._id] = user.name;
         });
+
         this.props.dispatch(routeNavigation({
             page: 'chat_page',
             payload: {
-                /*...this.props.payload,*/
                 usersName: usersName,
                 currentRoom: roomId,
                 prevPage: 'chat_list',

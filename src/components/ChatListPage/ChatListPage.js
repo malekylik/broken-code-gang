@@ -5,11 +5,12 @@ import { ConnectedHeader } from '../Header/Header';
 import { ChatList } from '../ChatList/ChatList';
 import { FooterNav } from '../FooterNav/FooterNav';
 import fetchRooms from '../../actions/fetchRooms';
-import { routeNavigation } from '../../actions/route';
+import routeNavigation from '../../actions/route';
 import { addMessage } from '../../actions/messages';
 import { updateLastMessage } from '../../actions/rooms';
 import api from '../../api';
 import createBrowserNotification from '../../helpers/createBrowserNotification';
+import onMessage from '../../helpers/onMessage';
 
 const stateToProps = state => ({
     items: state.rooms.items,
@@ -29,37 +30,7 @@ export const ChatListPage = connect(stateToProps)(class ChatListPage extends Rea
         };
         this.fetch = this.fetch.bind(this);
         this.submitHandler = this.submitHandler.bind(this); 
-        this.nott = this.nott.bind(this);
-    }
-
-     nott(message) {
-        if (this.destroy) {
-            return;
-        }
-    
-        if(this.props.payload.currentRoom === message.roomId){
-            this.props.dispatch(addMessage(message));
-        }
-    
-        this.props.dispatch(updateLastMessage(message));
-        this.props.dispatch(addMessage(message));
-    
-        if ((Notification.permission === "granted")) {
-            const { roomId, userId, message: messageText } = message;
-    
-            Promise.all([ api.getUser(userId), api.getRoom(roomId)]).then((result) => {
-                const [{ name: userName }, { name: roomName }] = result;
-    
-                createBrowserNotification(
-                    roomName,
-                    `${userName}: ${messageText}`,
-                );
-            });
-        }
-    }
-
-    componentWillUnmount() {
-        this.destroy = true;
+        this.onMessage = onMessage.bind(this);
     }
 
     componentDidMount() {
@@ -78,8 +49,7 @@ export const ChatListPage = connect(stateToProps)(class ChatListPage extends Rea
                 });
             });
 
-
-        // api.onMessage(this.nott);
+        api.onMessage(this.onMessage);
     }
 
     componentWillUpdate(){
@@ -87,7 +57,7 @@ export const ChatListPage = connect(stateToProps)(class ChatListPage extends Rea
     }
 
     componentWillUnmount(){
-        // this.props.items.forEach((item)=>api.currentUserLeaveChannel(item._id));
+        api.removeOnMessage(this.onMessage);
     }
 
     fetch() {
@@ -129,7 +99,6 @@ export const ChatListPage = connect(stateToProps)(class ChatListPage extends Rea
                     next={this.props.next}
                 />
                 <FooterNav active={this.props.payload.footerNav.active} />
-                <button className="ChatList_AddButton" onClick={this.submitHandler} >+</button>
             </div>
         );
     }

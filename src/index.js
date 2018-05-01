@@ -7,7 +7,7 @@ import App from './components/App/App';
 import registerServiceWorker from './registerServiceWorker';
 import rootReducer from './reducers';
 import signInUser from './actions/signInUser';
-import {routeNavigation} from './actions/route';
+import routeNavigation from './actions/route';
 
 import api from './api';
 //

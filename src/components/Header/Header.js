@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import './Header.css';
 import { HeaderCenterItems } from '../HeaderCenterItems/HeaderCenterItems';
 import { Button } from '../Button/Button';
-import { routeNavigation } from '../../actions/route';
+import routeNavigation from '../../actions/route';
 
 const stateToProps = state => ({
     payload: state.route.payload,

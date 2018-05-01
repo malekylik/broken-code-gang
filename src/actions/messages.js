@@ -1,9 +1,8 @@
 export const addMessage = (message) => {
-        console.log(message);
-        return ({
-            type: 'MESSAGE_ADD',
-            message,
-        })
+    return ({
+        type: 'MESSAGE_ADD',
+        message,
+    })
 };
 
 export const removeMessage = () => ({

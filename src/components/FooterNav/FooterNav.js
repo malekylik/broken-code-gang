@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button } from '../Button/Button';
-import { routeNavigation } from '../../actions/route';
+import routeNavigation from '../../actions/route';
 import './FooterNav.css';
 
 export const FooterNav = connect()(class FooterNav extends Component {

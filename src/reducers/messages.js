@@ -13,7 +13,7 @@ const messages = (state, action) => {
         case 'MESSAGE_ADD':
             return {
                 ...state,
-                items: [...state.items,action.message]
+                items: [...state.items, action.message]
             };
 
     case 'MESSAGE_REMOVE':

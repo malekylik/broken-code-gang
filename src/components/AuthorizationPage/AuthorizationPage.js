@@ -1,14 +1,12 @@
 import React from 'react';
 import './AuthorizationPage.css';
-import {connect} from 'react-redux'
-
-import {routeNavigation} from '../../actions/route';
 import api from '../../api';
+import { connect } from 'react-redux'
+
+import routeNavigation from '../../actions/route';
 import signInUser from '../../actions/signInUser';
 import Message from '../Message/Message';
-import { addMessage } from '../../actions/messages';
-import { updateLastMessage } from '../../actions/rooms';
-import createBrowserNotification from '../../helpers/createBrowserNotification';
+import onMessage from '../../helpers/onMessage';
 
 const updateInputField = (inputsState, input, field, value) => {
     return {
@@ -47,6 +45,7 @@ export const AuthorizationPage = connect()(
             this.onclick = this.onclick.bind(this);
             this.submitHandler = this.submitHandler.bind(this);
             this.fieldChangedHandler = this.fieldChangedHandler.bind(this);
+            this.onMessage = onMessage.bind(this);
         }
 
         onclick(button) {
@@ -86,13 +85,11 @@ export const AuthorizationPage = connect()(
             }
 
             if (this.state.active === 'Sign up') {
-                this.singUp(login, password, name)
-                    .then(()=>{});
+                this.singUp(login, password, name);
             }
 
             if (this.state.active === 'Sign in') {
-                this.singIn(login, password)
-                    .then(()=>{});
+                this.singIn(login, password);
             }
         }
 
@@ -139,21 +136,12 @@ export const AuthorizationPage = connect()(
 
         async singIn(login, password) {
             api.onMessage((message) => {
-                this.props.dispatch(updateLastMessage(message));
-                this.props.dispatch(addMessage(message));
-            
-                if ((Notification.permission === "granted")) {
-                    const { roomId, userId, message: messageText } = message;
-            
-                    Promise.all([ api.getUser(userId), api.getRoom(roomId)]).then((result) => {
-                        const [{ name: userName }, { name: roomName }] = result;
-            
-                        createBrowserNotification(
-                            roomName,
-                            `${userName}: ${messageText}`,
-                        );
-                    });
-                }
+                console.log('onMessage 1');
+                this.onMessage(message);
+            });
+
+            api.onMessage(() => {
+                console.log('onMessage 2');
             });
 
             const user = await this.props.dispatch(signInUser(login, password));

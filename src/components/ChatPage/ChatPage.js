@@ -8,7 +8,7 @@ import fetchMessages from '../../actions/fetchMessages';
 import { InfiniteScroll } from '../InfiniteScroll/InfiniteScroll';
 import api from '../../api';
 import MemberCount from '../../helpers/MemberCount';
-import {routeNavigation} from  '../../actions/route';
+import routeNavigation from  '../../actions/route';
 
 const stateToProps = state => ({
     messages: state.messages,

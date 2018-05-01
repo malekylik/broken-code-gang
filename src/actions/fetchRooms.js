@@ -5,8 +5,11 @@ export default function fetchRooms() {
     return async function (dispatch, getState) {
         try {
             const room = await api.getCurrentUserRooms(getState().rooms.next);
+
             const { items, next } = room;
+
             const end = !!(next);
+            
             for(let item of items){
                 await  api.currentUserJoinChannel(item._id);
                 const messages = await api.getLastRoomMessages(item._id);

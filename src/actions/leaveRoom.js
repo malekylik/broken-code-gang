@@ -1,5 +1,5 @@
 import api from '../api';
-import { routeNavigation } from './route';
+import routeNavigation from './route';
 
 export default function leaveRoom(roomId) {
     return async function (dispatch) {

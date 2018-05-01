@@ -11,10 +11,9 @@ import { ConnectedContactsListPage } from '../ContactsListPage/ContactsListPage'
 import { GroupChatSettings } from '../GroupChatSettings/GroupChatSettings';
 import { ConnectedUserList } from '../UserList/UserList';
 import { ConnectedAddUserToChatPage } from '../AddUserToChatPage/AddUserToChatPage';
-import {routeNavigation} from '../../actions/route';
+import routeNavigation from '../../actions/route';
 import api from '../../api';
 
-// TODO: create page for the settings
 
 const routeConfig = {
     authorization: {
@@ -51,7 +50,6 @@ const stateToProps = state => ({
 });
 
 class App extends Component {
-
     constructor(props) {
         super(props);
         this.loadApp = this.loadApp.bind(this);
@@ -62,10 +60,7 @@ class App extends Component {
         this.loadApp()
         .catch ((e)=>{
             console.log(e);
-        })
-            
-        
-            .then((user) => {
+        }).then((user) => {
                 console.log(user);
                if (user){
                 this.props.dispatch(routeNavigation({

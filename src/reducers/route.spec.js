@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import route from './route';
-import { routeNavigation } from '../actions/route'
+import routeNavigation from '../actions/route'
 
 describe('Reducer::Route', function() {
     it('returns route (object), page ("authorization"), payload (empty object) if state is undefined', function() {

@@ -5,7 +5,7 @@ import './GroupChatSettings.css';
 import { ConnectedHeader } from '../Header/Header';
 import { connect } from 'react-redux';
 import leaveRoom from '../../actions/leaveRoom';
-import { routeNavigation } from '../../actions/route';
+import routeNavigation from '../../actions/route';
 import fetchUsers from '../../actions/fetchUsers';
 
 const stateToProps = state => ({

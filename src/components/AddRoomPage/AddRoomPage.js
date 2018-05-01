@@ -5,7 +5,7 @@ import { ConnectedHeader } from '../Header/Header';
 import fetchUsers from '../../actions/fetchUsers';
 import { InfiniteRooms } from '../InfiniteRooms/InfiniteRooms';
 import addRoom from '../../actions/rooms';
-import { routeNavigation } from '../../actions/route';
+import routeNavigation from '../../actions/route';
 
 const stateToProps = state => ({
     items: state.users.items,

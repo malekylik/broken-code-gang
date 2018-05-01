@@ -5,7 +5,7 @@ import { FooterNav } from '../FooterNav/FooterNav';
 import { connect } from 'react-redux';
 import fetchUsers from '../../actions/fetchUsers';
 import addRoom from '../../actions/rooms';
-import { routeNavigation } from '../../actions/route';
+import routeNavigation from '../../actions/route';
 import api from '../../api';
 
 import './ContactsListPage.css';

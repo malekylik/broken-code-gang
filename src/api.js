@@ -343,6 +343,19 @@ class Api {
 
         this.io.on(MESSAGES.MESSAGE, callback);
     }
+
+    /**
+     * Remove callback, when someone joined one of your rooms
+     *
+     * @param {function(Message)} callback
+     *
+     * @return Promise<void>
+     */
+    async removeOnMessage(callback) {
+        await this._connectPromise;
+
+        this.io.removeListener(MESSAGES.MESSAGE, callback);
+    }
 }
 
 export default new Api();

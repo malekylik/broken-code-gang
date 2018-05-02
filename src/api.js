@@ -93,6 +93,12 @@ class Api {
     }
 
     /**
+     * Return true if login is in database*/
+    async isLoginPresent(login, password) {
+        return this.getUsers({ email: login, password: password }).then(result => !!result.items[0]);
+    }
+
+    /**
      * Add new user to database*/
     async addUser(login, password, name) {
         return this._requestResponse(MESSAGES.ADD_USER, { email: login, password: password, name: name });

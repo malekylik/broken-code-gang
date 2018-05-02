@@ -60,9 +60,8 @@ class App extends Component {
         this.loadApp()
         .catch ((e)=>{
             console.log(e);
-        }).then((user) => {
-                console.log(user);
-               if (user){
+        }).then((isUser) => {
+               if (isUser){
                 this.props.dispatch(routeNavigation({
                     page: 'chat_list',
                     payload: {
@@ -83,7 +82,7 @@ class App extends Component {
     }
 
     loadApp(){
-        return api.getCurrentUser();
+        return api.isLoginPresent();
     }
 
 

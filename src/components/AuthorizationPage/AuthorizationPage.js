@@ -116,33 +116,26 @@ export const AuthorizationPage = connect()(
 
         async singUp(login, password, name) {
             try{
-                const user = await api.getUserByLogin(login);
+                const isUser = await api.isLoginPresent(login);
 
-                if (user) {
+                if (isUser) {
                     this.setState({message: 'Такой логин уже занят.'});
                     return;
                 }
     
                 await api.addUser(login, password, name);
     
-                this.setState({
-                    active: 'Sign in',
-                    inputs: inputsInitial
-                });
+                this.singIn(login, password);
             } catch(error) {
                 console.log(error);
             }
         }
 
         async singIn(login, password) {
-            api.onMessage((message) => {
-                console.log('onMessage 1');
-                this.onMessage(message);
-            });
-
-            api.onMessage(() => {
-                console.log('onMessage 2');
-            });
+            // api.onMessage((message) => {
+            //     console.log('onMessage 1');
+            //     this.onMessage(message);
+            // });
 
             const user = await this.props.dispatch(signInUser(login, password));
 

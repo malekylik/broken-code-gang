@@ -6,11 +6,6 @@ import { ChatList } from '../ChatList/ChatList';
 import { FooterNav } from '../FooterNav/FooterNav';
 import fetchRooms from '../../actions/fetchRooms';
 import routeNavigation from '../../actions/route';
-import { addMessage } from '../../actions/messages';
-import { updateLastMessage } from '../../actions/rooms';
-import api from '../../api';
-import createBrowserNotification from '../../helpers/createBrowserNotification';
-import onMessage from '../../helpers/onMessage';
 
 const stateToProps = state => ({
     items: state.rooms.items,
@@ -30,7 +25,6 @@ export const ChatListPage = connect(stateToProps)(class ChatListPage extends Rea
         };
         this.fetch = this.fetch.bind(this);
         this.submitHandler = this.submitHandler.bind(this); 
-        this.onMessage = onMessage.bind(this);
     }
 
     componentDidMount() {
@@ -48,16 +42,6 @@ export const ChatListPage = connect(stateToProps)(class ChatListPage extends Rea
                     error,
                 });
             });
-
-        api.onMessage(this.onMessage);
-    }
-
-    componentWillUpdate(){
-
-    }
-
-    componentWillUnmount(){
-        api.removeOnMessage(this.onMessage);
     }
 
     fetch() {

@@ -4,7 +4,9 @@ import { ConnectedHeader } from '../Header/Header';
 import { Avatar } from '../Avatar/Avatar';
 import { FooterNav } from '../FooterNav/FooterNav';
 import routeNavigation from '../../actions/route';
+import leaveRooms from '../../actions/leaveRooms';
 import api from '../../api';
+import onMessage from '../../helpers/onMessage'
 
 import './UserPage.css';
 
@@ -20,12 +22,13 @@ export class UserPage extends Component {
         this.exitHandle = this.exitHandle.bind(this);
     }
 
-    exitHandle() {
-        api.logoutCurrentUser().then(() => {
-            this.props.dispatch({ type: 'USER_SIGN_OUT' });
+    async exitHandle() {
+        await api.logoutCurrentUser();
+        await api.removeOnMessage(onMessage);
+        await this.props.dispatch(routeNavigation(leaveRooms));
 
-            this.props.dispatch(routeNavigation({ page: 'authorization' }));
-        });
+        this.props.dispatch(routeNavigation({ page: 'authorization' }));
+    
     }
 
     render() {

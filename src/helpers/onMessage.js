@@ -2,12 +2,13 @@ import { addMessage } from '../actions/messages';
 import { updateLastMessage } from '../actions/rooms';
 import createBrowserNotification from './createBrowserNotification';
 import api from '../api';
+import dispatch from "../index.js";
 
 const onMessage = function(message) {
-    this.props.dispatch(updateLastMessage(message));
+    dispatch(updateLastMessage(message));
     
     // if(this.props.payload.currentRoom === message.roomId){
-    //     this.props.dispatch(addMessage(message));
+        // this.props.dispatch(addMessage(message));
     // }
 
     if ((Notification.permission === "granted")) {

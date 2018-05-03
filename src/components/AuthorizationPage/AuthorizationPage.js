@@ -132,17 +132,14 @@ export const AuthorizationPage = connect()(
         }
 
         async singIn(login, password) {
-            // api.onMessage((message) => {
-            //     console.log('onMessage 1');
-            //     this.onMessage(message);
-            // });
-
             const user = await this.props.dispatch(signInUser(login, password));
 
             if (!user) {
                 this.setState({message: 'Пользователя с таким логином и паролем не найдено.'});
                 return;
             }
+
+            api.onMessage(onMessage);
 
             if (user) {
                 this.props.dispatch(routeNavigation({

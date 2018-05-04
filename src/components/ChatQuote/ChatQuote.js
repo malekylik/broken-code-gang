@@ -40,7 +40,7 @@ export class ChatQuote extends React.Component {
         }
 
         const messageImages = imagesUrls.map((url)=>{
-            return <img className="ChatQuote__extra__img" src={url} alt="" />;
+            return <img key={url} className="ChatQuote__extra__img" src={url} alt="" />;
         });
 
 
@@ -48,7 +48,7 @@ export class ChatQuote extends React.Component {
             <div className={`ChatQuote ${chatDirection}`}>
                 {user}
                 <p className="ChatQuote__text">
-                    {editedMessageParts.map((token)=> {
+                    {editedMessageParts.map((token, i)=> {
                             switch (token.type){
                                 case 'smile':
                                     return <img className="ChatQuote__text__smile" src={require(`../../assets/icons/${token.src}`)} alt="" />;
@@ -60,9 +60,8 @@ export class ChatQuote extends React.Component {
                                     } else {
                                         return <a className="ChatQuote__text__link" href={token.src} target="_blank">{token.src + " "}</a>;
                                     }
-
                                 default:
-                                    return <span>{token.text + " "}</span>;
+                                    return <span key={`token${i}`}>{token.text + " "}</span>;
                             }
                         })}
                 </p>

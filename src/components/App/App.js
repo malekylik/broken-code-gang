@@ -84,7 +84,7 @@ class App extends Component {
     }
 
     loadApp(){
-        return api.isLoginPresent();
+        return api.getCurrentUser();
     }
 
 

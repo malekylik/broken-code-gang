@@ -12,11 +12,19 @@
     }
 }
 
+.AuthorizationPage_Form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .AuthorizationPage {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
+    padding-bottom: 30px;
 }
 
 .AuthorizationPage__Select {
@@ -27,7 +35,7 @@
 }
 
 .AuthorizationPage__Select__button {
-    height: 10vh;
+    min-height: 55px;
     width: 40%;
     border: none;
     font-size: 16px;
@@ -46,7 +54,7 @@
 .AuthorizationPage__Input {
     width: 60%;
     max-width: 500px;
-    height: 7vh;
+    min-height: 45px;
     font-size: 14px;
     color: #919EC4;
     background: #FFFFFF;
@@ -67,7 +75,7 @@
     margin-top: 40px;
     width: 55%;
     max-width: 500px;
-    height: 7vh;
+    min-height: 45px;
     background: #F13564;
     box-shadow: 0 13px 25px 0 rgba(0, 0, 0, 0.12);
     border-radius: 100px;

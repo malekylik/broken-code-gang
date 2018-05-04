@@ -55,7 +55,8 @@ export const AuthorizationPage = connect()(
             });
         }
 
-        submitHandler() {
+        submitHandler(e) {
+            e.preventDefault();
             const { login: { value: login }, password: { value: password} , name: { value: name} } = this.state.inputs;
 
             let inputs = this.state.inputs;
@@ -165,14 +166,16 @@ export const AuthorizationPage = connect()(
                     {this.state.message && <Message text={this.state.message} />}
 
                     <img className="AuthorizationPage__Image" src={require('../../assets/icons/logo.png')} alt="logo"/>
-                    <input value={login} className="AuthorizationPage__Input" style={{animationName: loginError ? 'input-error' : ''}} onChange={this.fieldChangedHandler} onAnimationEnd={() => {this.setState({inputs: updateInputField(this.state.inputs, 'login', 'error', false)})}} type="email" name="login" placeholder="Email" required/>
-                    {swapButton === 'Sign in' &&
-                    <input value={name} className="AuthorizationPage__Input" style={{animationName: nameError ? 'input-error' : ''}} onChange={this.fieldChangedHandler} onAnimationEnd={() => {this.setState({inputs: updateInputField(this.state.inputs, 'name', 'error', false)})}} type="text" name="name" placeholder="Name"
-                           required/>}
-                    <input value={password} className="AuthorizationPage__Input" style={{animationName: passwordError ? 'input-error' : ''}} onChange={this.fieldChangedHandler} onAnimationEnd={() => {this.setState({inputs: updateInputField(this.state.inputs, 'password', 'error', false)})}} type="password" name="password" placeholder="Password"
-                           required/>
-                    <button className="AuthorizationPage__submit"
-                            onClick={this.submitHandler}>{this.state.active}</button>
+                    <form className="AuthorizationPage_Form" onSubmit={this.submitHandler}>
+                        <input value={login} className="AuthorizationPage__Input" style={{animationName: loginError ? 'input-error' : ''}} onChange={this.fieldChangedHandler} onAnimationEnd={() => {this.setState({inputs: updateInputField(this.state.inputs, 'login', 'error', false)})}} type="email" name="login" placeholder="Email" required/>
+                        {swapButton === 'Sign in' &&
+                        <input value={name} className="AuthorizationPage__Input" style={{animationName: nameError ? 'input-error' : ''}} onChange={this.fieldChangedHandler} onAnimationEnd={() => {this.setState({inputs: updateInputField(this.state.inputs, 'name', 'error', false)})}} type="text" name="name" placeholder="Name"
+                            required/>}
+                        <input value={password} className="AuthorizationPage__Input" style={{animationName: passwordError ? 'input-error' : ''}} onChange={this.fieldChangedHandler} onAnimationEnd={() => {this.setState({inputs: updateInputField(this.state.inputs, 'password', 'error', false)})}} type="password" name="password" placeholder="Password"
+                            required/>
+                        <input type="submit" className="AuthorizationPage__submit"
+                             onSubmit={this.submitHandler}/>
+                    </form>
                     <div className="AuthorizationPage__Select">
                         <button onClick={this.onclick} name={swapButton} key={swapButton}
                                 className='AuthorizationPage__Select__button'>{swapButton}</button>

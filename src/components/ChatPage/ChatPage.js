@@ -66,10 +66,6 @@ export class ChatPage extends Component {
         }
     }
     
-    componentWillUnmount(){
-        // api.currentUserLeaveChannel(this.props.payload.currentRoom);
-    }
-
     render() {
         const messages = this.props.messages.items,
             next = this.props.messages.next,

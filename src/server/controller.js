@@ -1,4 +1,4 @@
-const { findUserBySid, getUsers, addUser, setCurrentUser, logoutUser } = require('./database/user');
+const { findUserBySid, getUsers, addUser, addPushInfoUser , setCurrentUser, logoutUser } = require('./database/user');
 const {
     joinRoom, leaveRoom, getRooms, getUserRooms, createRoom, getRoom, dropRoom
 } = require('./database/room');
@@ -146,6 +146,13 @@ module.exports = function (db, io) {
         // Add new user
         requestResponse(TYPES.ADD_USER, async (payload) => {
             return await addUser(db, {
+                ...payload,
+            });
+        });
+
+        // Add push info user
+        requestResponse(TYPES.ADD_PUSH_INFO, async (payload) => {
+            return await addPushInfoUser(db, {
                 ...payload,
             });
         });

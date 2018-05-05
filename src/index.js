@@ -101,6 +101,8 @@ import api from './api';
 
 // })();
 
+
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 function middleware({ dispatch, getState }) {
@@ -148,4 +150,4 @@ ReactDOM.render(
 
 registerServiceWorker();
 
-export default store.dispatch;
+export { store };

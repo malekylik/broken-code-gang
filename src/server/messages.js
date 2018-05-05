@@ -25,6 +25,11 @@ module.exports = {
     ADD_USER: 'ADD_USER',
 
     /**
+     * Add push info of user to database
+     */
+    ADD_PUSH_INFO: ' ADD_PUSH_INFO',
+
+    /**
      * Change online status of user
      */
     ONLINE: 'ONLINE',

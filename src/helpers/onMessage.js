@@ -2,14 +2,21 @@ import { addMessage } from '../actions/messages';
 import { updateLastMessage } from '../actions/rooms';
 import createBrowserNotification from './createBrowserNotification';
 import api from '../api';
-import dispatch from "../index.js";
+import { store } from "../index.js";
 
 const onMessage = function(message) {
-    dispatch(updateLastMessage(message));
+    store.dispatch(updateLastMessage(message));
+    const state = store.getState() || {};
+
+    const { route: { page } } = state;
     
-    // if(this.props.payload.currentRoom === message.roomId){
-        // this.props.dispatch(addMessage(message));
-    // }
+    if (page === 'chat_page') {
+        const { route: { payload: { currentRoom } } } = state;
+        if (currentRoom === message.roomId) {
+            store.dispatch(addMessage(message));
+        }
+    }
+
 
     if ((Notification.permission === "granted")) {
         const { roomId, userId, message: messageText } = message;

@@ -105,6 +105,12 @@ class Api {
     }
 
     /**
+     * Add push info of user to database*/
+    async addPushInfoUser(_id, device, info) {
+        return this._requestResponse(MESSAGES.ADD_PUSH_INFO, { _id, device, info });
+    }
+
+    /**
      * Get information about user
      *
      * @param {string} userId

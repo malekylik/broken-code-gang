@@ -120,6 +120,30 @@ async function addUser(db, { email, password, name }) {
     return userEntity;
 }
 
+/**
+ * @param {Db} db
+ * @param {string} email
+ * @param {string} password
+ *
+ * @return {Promise<Message>}
+ */
+async function addPushInfoUser(db, { _id, device, info }) {
+    if (!_id) {
+        throw new Error('User email required');
+    }
+
+    if (!device) {
+        throw new Error('User password required');
+    }
+
+    if (!info) {
+        throw new Error('User name required');
+    }
+
+    const collection = await db.collection(TABLE);
+    await collection.updateOne({ _id }, { [device]: info });
+}
+
 module.exports = {
     findUserBySid,
     getUsers,

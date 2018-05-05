@@ -110,7 +110,7 @@ export class ContactsListPage extends Component {
     }
 
     handleSearch(event){
-        const searchQuery = event.target.value.toLowerCase();
+        const searchQuery = event.target.value;
 
         this.setState({
             searchTerm: searchQuery,

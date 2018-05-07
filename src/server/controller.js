@@ -3,12 +3,19 @@ const {
     joinRoom, leaveRoom, getRooms, getUserRooms, createRoom, getRoom, dropRoom
 } = require('./database/room');
 const { getMessages, sendMessage } = require('./database/messages');
+const { getSessionInfoById } = require('./database/session');
+
 const TYPES = require('./messages');
 
 /**
  * @param {Db} db
  * @param {*} io
  */
+
+ let count = 0;
+
+ const sockets = {};
+
 module.exports = function (db, io) {
     const ONLINE = {};
 
@@ -30,6 +37,7 @@ module.exports = function (db, io) {
             isDisconnected = false;
 
         socket.join('broadcast');
+        sockets[sid] = socket.id;
 
         /**
          * Invoke callback and handle errors
@@ -157,11 +165,24 @@ module.exports = function (db, io) {
             });
         });
 
+
+        requestResponse(TYPES.ADDED_TO_CHAT, async (params) => {
+            const { users, room } = params;
+
+            for (let i = 0; i < users.length; i++) {
+                getSessionInfoById(db, users[i]).then(({ sid }) => {
+                    socket.broadcast.to(sockets[sid]).emit(TYPES.ADDED_TO_CHAT, room);
+                });
+            }
+
+            return room;
+        });
+
         // Create room
         requestResponse(TYPES.CREATE_ROOM, async (params) => {
             const currentUser = await CurrentUser();
 
-            return createRoom(db, currentUser, params);
+            return await createRoom(db, currentUser, params);
         });
 
         // Create room

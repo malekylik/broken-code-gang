@@ -7,6 +7,7 @@ import routeNavigation from '../../actions/route';
 import signInUser from '../../actions/signInUser';
 import Message from '../Message/Message';
 import onMessage from '../../helpers/onMessage';
+import onCreateRoom from '../../helpers/onCreateRoom';
 
 const updateInputField = (inputsState, input, field, value) => {
     return {
@@ -141,6 +142,7 @@ export const AuthorizationPage = connect()(
             }
 
             api.onMessage(onMessage);
+            api.onCreateRoom(onCreateRoom);
 
             if (user) {
                 this.props.dispatch(routeNavigation({

@@ -6,10 +6,16 @@ export default function addRoom(name, user) {
             // Loading
             let room = null;
             room = await api.createRoom(name);
+
+
             room = await api.currentUserJoinRoom(room._id);
+
             for (let current of user) {
                 await api.userJoinRoom(current, room._id);
             }
+
+            await api.addedToChat(user, await api.getRoom(room._id));
+
             dispatch({
                 type: 'ROOM_ADD',
                 room,
@@ -42,4 +48,23 @@ export function updateLastMessage(message) {
             }
         }
     };
+}
+
+export function updateLastChat(room) {
+    return async function (dispatch) {
+        try {
+            await api.currentUserJoinChannel(room._id);
+
+            dispatch({
+                type: 'ROOM_ADD',
+                room,
+            });
+
+        } catch (error) {
+            return {
+                type: 'ROOM_ERROR',
+                error,
+            }
+        }
+    }
 }

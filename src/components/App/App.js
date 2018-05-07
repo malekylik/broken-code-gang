@@ -11,7 +11,8 @@ import { ConnectedContactsListPage } from '../ContactsListPage/ContactsListPage'
 import { GroupChatSettings } from '../GroupChatSettings/GroupChatSettings';
 import { ConnectedUserList } from '../UserList/UserList';
 import { ConnectedAddUserToChatPage } from '../AddUserToChatPage/AddUserToChatPage';
-import onMessage from '../../helpers/onMessage'
+import onMessage from '../../helpers/onMessage';
+import onCreateRoom from '../../helpers/onCreateRoom';
 import routeNavigation from '../../actions/route';
 import api from '../../api';
 
@@ -63,6 +64,7 @@ class App extends Component {
         }).then((isUser) => {
                if (isUser){
                 api.onMessage(onMessage);
+                api.onCreateRoom(onCreateRoom);
 
                 this.props.dispatch(routeNavigation({
                     page: 'chat_list',

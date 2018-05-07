@@ -259,6 +259,10 @@ class Api {
         return this._requestResponse(MESSAGES.REMOVE_USER_FROM_ROOM, {userId, roomId });
     }
 
+    async addedToChat(users, room) {
+        return this._requestResponse(MESSAGES.ADDED_TO_CHAT, { users, room });
+    }
+
     /**
      * Send message to the room
      *
@@ -357,6 +361,19 @@ class Api {
     }
 
     /**
+     * Invoke callback, when someone create room with you
+     *
+     * @param {function(Message)} callback
+     *
+     * @return Promise<void>
+     */
+    async onCreateRoom(callback) {
+        await this._connectPromise;
+
+        this.io.on(MESSAGES.ADDED_TO_CHAT, callback);
+    }
+
+    /**
      * Remove callback, when someone joined one of your rooms
      *
      * @param {function(Message)} callback
@@ -367,6 +384,19 @@ class Api {
         await this._connectPromise;
 
         this.io.removeListener(MESSAGES.MESSAGE, callback);
+    }
+
+    /**
+     * Remove callback, when someone create room with you
+     *
+     * @param {function(Message)} callback
+     *
+     * @return Promise<void>
+     */
+    async removeOnCreateRoom(callback) {
+        await this._connectPromise;
+
+        this.io.removeListener(MESSAGES.ADDED_TO_CHAT, callback);
     }
 }
 

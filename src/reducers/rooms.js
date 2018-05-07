@@ -34,7 +34,6 @@ export default function rooms(state, action) {
                 next: null,
             };
         case 'ROOMS_UPDATE_LAST_MESSAGE':
-            console.log(state);
             let newItems = [...state.items],
                 newState = {
                     ...state,

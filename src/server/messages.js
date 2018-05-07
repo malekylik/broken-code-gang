@@ -39,6 +39,8 @@ module.exports = {
      */
     CREATE_ROOM: 'CREATE_ROOM',
 
+    ADDED_TO_CHAT: 'ADDED_TO_CHAT',
+
     /**
      * Return all rooms
      */

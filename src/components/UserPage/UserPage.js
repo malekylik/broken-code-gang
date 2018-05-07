@@ -6,7 +6,8 @@ import { FooterNav } from '../FooterNav/FooterNav';
 import routeNavigation from '../../actions/route';
 import leaveRooms from '../../actions/leaveRooms';
 import api from '../../api';
-import onMessage from '../../helpers/onMessage'
+import onMessage from '../../helpers/onMessage';
+import onCreateRoom from '../../helpers/onCreateRoom';
 
 import './UserPage.css';
 
@@ -25,6 +26,7 @@ export class UserPage extends Component {
     async exitHandle() {
         await api.logoutCurrentUser();
         await api.removeOnMessage(onMessage);
+        await api.removeOnCreateRoom(onCreateRoom);
         await this.props.dispatch(routeNavigation(leaveRooms));
 
         this.props.dispatch(routeNavigation({ page: 'authorization' }));

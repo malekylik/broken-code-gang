@@ -56,7 +56,7 @@ function createConnection(config) {
  * @return {string}
  */
 function createDatabaseUri(config) {
-    console.log(`mongodb://${config.user}:${config.password}@${config.host}:${config.port}/${config.database}`);
+    // console.log(`mongodb://${config.user}:${config.password}@${config.host}:${config.port}/${config.database}`);
     return `mongodb://${config.user}:${config.password}@${config.host}:${config.port}/${config.database}`;
 }
 

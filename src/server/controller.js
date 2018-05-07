@@ -12,7 +12,6 @@ const TYPES = require('./messages');
  * @param {*} io
  */
 
- let count = 0;
 
  const sockets = {};
 
@@ -38,6 +37,7 @@ module.exports = function (db, io) {
 
         socket.join('broadcast');
         sockets[sid] = socket.id;
+
 
         /**
          * Invoke callback and handle errors

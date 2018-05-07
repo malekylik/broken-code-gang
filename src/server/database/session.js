@@ -18,7 +18,8 @@ async function getSessionInfo(db, sid) {
 }
 
 async function getSessionInfoById(db, id) {
-    return db.collection(TABLE).findOne({ userId: ObjectId(id.toString()) }).then(result => result || { });
+    // return db.collection(TABLE).findOne({ userId: ObjectId(id.toString()) }).then(result => result || { });
+    return db.collection(TABLE).find({ userId: ObjectId(id.toString()) }).sort({$natural : -1}).limit(1).next();
 }
 
 /**

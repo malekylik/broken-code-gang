@@ -3,10 +3,7 @@ import api from '../api';
 export default function addRoom(name, user) {
     return async function (dispatch) {
         try {
-            // Loading
-            let room = null;
-            room = await api.createRoom(name);
-
+            let room = await api.createRoom(name);
 
             room = await api.currentUserJoinRoom(room._id);
 
@@ -48,23 +45,4 @@ export function updateLastMessage(message) {
             }
         }
     };
-}
-
-export function updateLastChat(room) {
-    return async function (dispatch) {
-        try {
-            await api.currentUserJoinChannel(room._id);
-
-            dispatch({
-                type: 'ROOM_ADD',
-                room,
-            });
-
-        } catch (error) {
-            return {
-                type: 'ROOM_ERROR',
-                error,
-            }
-        }
-    }
 }

@@ -6,6 +6,7 @@ import { ChatList } from '../ChatList/ChatList';
 import { FooterNav } from '../FooterNav/FooterNav';
 import fetchRooms from '../../actions/fetchRooms';
 import routeNavigation from '../../actions/route';
+import makeCancelable from '../../helpers/cancelablePromise';
 
 const stateToProps = state => ({
     items: state.rooms.items,
@@ -14,6 +15,7 @@ const stateToProps = state => ({
     error: state.rooms.error,
     payload: state.route.payload,
     user: state.user,
+    page: state.route.page,
 });
 
 export const ChatListPage = connect(stateToProps)(class ChatListPage extends React.Component {
@@ -32,16 +34,22 @@ export const ChatListPage = connect(stateToProps)(class ChatListPage extends Rea
             {
                 type: 'ROOMS_RESET',
             });
-        this.fetch()
+
+        this.didMountFetch = makeCancelable(this.fetch());
+
+        this.didMountFetch.promise
             .then(() => {
                 this.setState({ loading: false });
             })
             .catch((error) => {
-                this.setState({
-                    loading: false,
-                    error,
-                });
+                if (error.isCanceled === undefined) {
+                    console.log(error);
+                }
             });
+    }
+
+    componentWillUnmount() {
+        this.didMountFetch.cancel();
     }
 
     fetch() {

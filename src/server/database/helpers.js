@@ -16,7 +16,7 @@ const { ObjectId } = require('mongodb');
  * @param filter
  */
 async function pageableCollection(collection, {
-    lastId, order, limit = 10, ...query
+    lastId, order = {}, limit = 10, ...query
 } = {}, selectModifier) {
     const count = await collection.find(query).count();
     if(lastId && selectModifier){
@@ -30,11 +30,7 @@ async function pageableCollection(collection, {
         };
     }
 
-    let queryBuilder = collection.find(query, { limit, fields: { password: false } });
-
-    if (order) {
-        queryBuilder = queryBuilder.sort(order);
-    }
+    let queryBuilder = collection.find(query, { limit, fields: { password: false } }).sort(order);
 
     if (typeof query._id === 'string') {
         query._id = ObjectId(query._id.toString());

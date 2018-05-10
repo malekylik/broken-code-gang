@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import routeNavigation from '../../actions/route';
 import signInUser from '../../actions/signInUser';
 import Message from '../Message/Message';
+import onAddUser from '../../helpers/onAddUser';
 import onMessage from '../../helpers/onMessage';
 import onCreateRoom from '../../helpers/onCreateRoom';
 
@@ -143,6 +144,7 @@ export const AuthorizationPage = connect()(
 
             api.onMessage(onMessage);
             api.onCreateRoom(onCreateRoom);
+            api.onAddUser(onAddUser);
 
             if (user) {
                 this.props.dispatch(routeNavigation({

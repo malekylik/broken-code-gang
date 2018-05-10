@@ -361,6 +361,19 @@ class Api {
     }
 
     /**
+     * Invoke callback, when someone register
+     *
+     * @param {function(Message)} callback
+     *
+     * @return Promise<void>
+     */
+    async onAddUser(callback) {
+        await this._connectPromise;
+
+        this.io.on(MESSAGES.ADD_USER, callback);
+    }
+
+    /**
      * Invoke callback, when someone create room with you
      *
      * @param {function(Message)} callback
@@ -384,6 +397,19 @@ class Api {
         await this._connectPromise;
 
         this.io.removeListener(MESSAGES.MESSAGE, callback);
+    }
+
+    /**
+     * Remove callback, when someone register
+     *
+     * @param {function(Message)} callback
+     *
+     * @return Promise<void>
+     */
+    async removeAddUser(callback) {
+        await this._connectPromise;
+
+        this.io.removeListener(MESSAGES.ADD_USER, callback);
     }
 
     /**

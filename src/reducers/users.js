@@ -24,6 +24,11 @@ export default function users(state, action) {
             items: [],
             next: null,
         };
+    case 'USERS_UPDATE_LAST_USER': 
+        return {
+            ...state,
+            items: [action.newUser, ...state.items],
+        };
     default:
         return state;
     }

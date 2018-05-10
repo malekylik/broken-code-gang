@@ -113,8 +113,11 @@ async function addUser(db, { email, password, name }) {
         password: password,
         name: name
     };
+
     const result = await db.collection(TABLE).insertOne(userEntity);
     userEntity._id = result.insertedId;
+
+    delete userEntity.password;
 
     return userEntity;
 }

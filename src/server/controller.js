@@ -153,9 +153,11 @@ module.exports = function (db, io) {
 
         // Add new user
         requestResponse(TYPES.ADD_USER, async (payload) => {
-            return await addUser(db, {
-                ...payload,
-            });
+            const user = await addUser(db, { ...payload });
+
+            socket.broadcast.emit(TYPES.ADD_USER, user);
+
+            return user;
         });
 
         // Add push info user

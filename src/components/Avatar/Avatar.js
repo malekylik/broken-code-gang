@@ -2,8 +2,8 @@ import React from 'react';
 import './Avatar.css';
 
 export function Avatar(props) {
-    const imgSrc = props.image.src;
-    const imgModifier = props.image.modifier;
+    const { imgSrc, imgModifier } = props.image;
+
     return (
         <img
             className={`${imgModifier ? `avatar ${imgModifier}` : 'avatar'}`}

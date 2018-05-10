@@ -45,7 +45,7 @@ export class ContactsListPage extends Component {
         }
     }
 
-    enterRoom = async(roomId) => {
+    enterRoom = async (roomId) => {
         const users = await api.getUsersOfRoom(roomId),
             usersName = {};
         users.items.forEach(user => {

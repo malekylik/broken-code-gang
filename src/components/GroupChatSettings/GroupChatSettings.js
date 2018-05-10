@@ -59,7 +59,7 @@ function addNewUserToChat() {
         payload: {
             prevPage: 'chat_settings',
             prevPrevPage: this.payload.prevPage,
-            prevPrevPrevPage:this.payload.prevPrevPage,
+            prevPrevPrevPage: this.payload.prevPrevPage,
         }
     }));
 }

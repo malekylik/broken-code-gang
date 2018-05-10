@@ -52,10 +52,9 @@ export class AddUserToChatPage extends Component {
     render() {
         let displayedContacts = [];
         let searchQuery = this.state.searchTerm;
-        if (searchQuery && this.props.users) {
-            displayedContacts = this.props.users.filter((user) => {
-                return (user.name && user.name.toLowerCase().includes(searchQuery.toLowerCase()));
-            })
+
+        if (searchQuery) {
+            displayedContacts = this.props.users.filter(user => (user.name && user.name.toLowerCase().includes(searchQuery.toLowerCase())));
         } else {
             displayedContacts = this.props.users;
         }

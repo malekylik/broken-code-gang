@@ -73,31 +73,33 @@ export default class Header extends Component {
         } else if (buttonSettings) {
             rightControl = <Button type="settings" active modifier="s" circle onClick={this.openChatSettings.bind(this)}/>;
         }
+
         let contentTitle = '';
         let contentDesc = '';
+
         switch (contentType) {
-        case 'chats':
-            contentTitle = 'BCG';
-            break;
-        case 'add-room':
-            contentTitle = 'Создать kомнату';
-            break;
-        case 'contacts':
-            contentTitle = 'Contacts';
-            break;
-        case 'add-user':
-            contentTitle = 'Select contact';
-            break;
-        case 'settings':
-            contentTitle = 'Settings';
-            break;
-        case 'chat':
-            contentTitle = this.props.contentTitle || 'Chat';
-            contentDesc = this.props.contentDesc || '';
-            break;
-        default:
-            contentTitle = 'BCG';
-            break;
+            case 'chats':
+                contentTitle = 'BCG';
+                break;
+            case 'add-room':
+                contentTitle = 'Создать kомнату';
+                break;
+            case 'contacts':
+                contentTitle = 'Contacts';
+                break;
+            case 'add-user':
+                contentTitle = 'Select contact';
+                break;
+            case 'settings':
+                contentTitle = 'Settings';
+                break;
+            case 'chat':
+                contentTitle = this.props.contentTitle || 'Chat';
+                contentDesc = this.props.contentDesc || '';
+                break;
+            default:
+                contentTitle = 'BCG';
+                break;
         }
 
         let headerContent = '';
@@ -110,7 +112,6 @@ export default class Header extends Component {
         } else {
             headerContent = <HeaderCenterItems title={contentTitle} desc={contentDesc} />;
         }
-
 
         return (
             <header className="Header">

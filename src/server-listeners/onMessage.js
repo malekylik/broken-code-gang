@@ -1,6 +1,6 @@
 import { addMessage } from '../actions/messages';
 import { updateLastMessage } from '../actions/rooms';
-import createBrowserNotification from './createBrowserNotification';
+import createBrowserNotification from '../helpers/createBrowserNotification';
 import api from '../api';
 import { store } from "../index.js";
 
@@ -16,7 +16,6 @@ const onMessage = function(message) {
             store.dispatch(addMessage(message));
         }
     }
-
 
     if ((Notification.permission === "granted")) {
         const { roomId, userId, message: messageText } = message;

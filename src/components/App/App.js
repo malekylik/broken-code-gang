@@ -11,9 +11,9 @@ import { ConnectedContactsListPage } from '../ContactsListPage/ContactsListPage'
 import { GroupChatSettings } from '../GroupChatSettings/GroupChatSettings';
 import { ConnectedUserList } from '../UserList/UserList';
 import { ConnectedAddUserToChatPage } from '../AddUserToChatPage/AddUserToChatPage';
-import onAddUser from '../../helpers/onAddUser';
-import onMessage from '../../helpers/onMessage';
-import onCreateRoom from '../../helpers/onCreateRoom';
+import onAddUser from '../../server-listeners/onAddUser';
+import onMessage from '../../server-listeners/onMessage';
+import onCreateRoom from '../../server-listeners/onCreateRoom';
 import routeNavigation from '../../actions/route';
 import api from '../../api';
 

@@ -6,9 +6,9 @@ import { FooterNav } from '../FooterNav/FooterNav';
 import routeNavigation from '../../actions/route';
 import leaveRooms from '../../actions/leaveRooms';
 import api from '../../api';
-import onAddUser from '../../helpers/onAddUser';
-import onMessage from '../../helpers/onMessage';
-import onCreateRoom from '../../helpers/onCreateRoom';
+import onAddUser from '../../server-listeners/onAddUser';
+import onMessage from '../../server-listeners/onMessage';
+import onCreateRoom from '../../server-listeners/onCreateRoom';
 
 import './UserPage.css';
 

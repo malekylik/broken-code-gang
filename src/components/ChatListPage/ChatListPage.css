@@ -1,14 +1,20 @@
 .ChatListPage {
-    position: fixed;
     height: 100%;
     width: 100%;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 50px 1fr 40px;
-    justify-items: stretch;
-    align-items: stretch;
-    align-content: stretch;
+    padding-top: 50px;
+    padding-bottom: 40px;
 }
+
+.ChatListPage .Header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.ChatListPage .Footer__nav {
+    position: fixed;
+    bottom: 0;
+ }
 
 .Emotion{
     width: 30px;

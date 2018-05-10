@@ -2,6 +2,7 @@
   "name": "shri-boilerplate",
   "version": "0.1.0",
   "private": true,
+  "server": "nodemon -w server.js -w src/server —inspect server.js",
   "proxy": "http://localhost:3001/",
   "engines": {
     "node": "9.11.1"

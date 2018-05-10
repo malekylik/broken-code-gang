@@ -6,7 +6,6 @@ import { FooterNav } from '../FooterNav/FooterNav';
 import routeNavigation from '../../actions/route';
 import leaveRooms from '../../actions/leaveRooms';
 import api from '../../api';
-import onAddUser from '../../server-listeners/onAddUser';
 import onMessage from '../../server-listeners/onMessage';
 import onCreateRoom from '../../server-listeners/onCreateRoom';
 
@@ -26,7 +25,6 @@ export class UserPage extends Component {
 
     async exitHandle() {
         await api.logoutCurrentUser();
-        await api.removeAddUser(onAddUser);
         await api.removeOnMessage(onMessage);
         await api.removeOnCreateRoom(onCreateRoom);
         await this.props.dispatch(routeNavigation(leaveRooms));

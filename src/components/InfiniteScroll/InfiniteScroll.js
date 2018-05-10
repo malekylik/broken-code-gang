@@ -29,7 +29,7 @@ export class InfiniteScroll extends React.Component {
     }
 
     componentDidMount() {
-        document.addEventListener('scroll', this.onScroll, {passive: true});
+        document.addEventListener('scroll', this.onScroll, { passive: true });
         this.onScroll();
     }
 
@@ -38,9 +38,11 @@ export class InfiniteScroll extends React.Component {
     }
 
     componentDidUpdate() {        
-        if (document.documentElement.scrollTop+window.innerHeight + 254 >= document.documentElement.scrollHeight){
+        if (document.documentElement.scrollTop + window.innerHeight + 254 >= document.documentElement.scrollHeight
+        && this.props.scrollDirection === 'up'){
             document.documentElement.scrollTop = document.documentElement.scrollHeight;
         }     
+
         this.onScroll();
     }
 
@@ -48,27 +50,29 @@ export class InfiniteScroll extends React.Component {
         if (!this.container || this.state.loading) {
             return;
         }
+
         let containerHeight = this.container.children && this.container.children[0] && this.container.children[0].clientHeight,
             scrollTop = document.body.scrollTop || document.documentElement.scrollTop,
             windowHeight = window.innerHeight;
+
         //Если мы скроллим вверх
         if (this.props.scrollDirection === 'up' && scrollTop < THRESHOLD && this.props.next) {
             document.documentElement.scrollTop = 1.01 * THRESHOLD;
             this.nextPage();
         } else if (this.props.scrollDirection === 'down' && scrollTop + windowHeight > containerHeight - THRESHOLD && this.props.next) {
-                document.documentElement.scrollTop = 0.99 * (containerHeight - THRESHOLD - windowHeight);
-                this.nextPage();
+            document.documentElement.scrollTop = 0.99 * (containerHeight - THRESHOLD - windowHeight);
+            this.nextPage();
         }
     }
 
     async nextPage() {
-        this.setState({loading: true});
+        this.setState({ loading: true });
         try {
             await this.props.fetchNext();
         } catch (err) {
             console.error(err);
         } finally {
-            this.setState({loading: false});
+            this.setState({ loading: false });
         }
     }
 

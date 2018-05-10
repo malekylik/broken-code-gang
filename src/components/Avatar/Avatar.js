@@ -2,7 +2,7 @@ import React from 'react';
 import './Avatar.css';
 
 export function Avatar(props) {
-    const { imgSrc, imgModifier } = props.image;
+    const { src: imgSrc, modifier: imgModifier } = props.image;
 
     return (
         <img

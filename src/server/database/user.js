@@ -36,7 +36,7 @@ async function getUser(db, userId) {
     if (!userId){
         return null;
     }
-    return db.collection(TABLE).findOne({ _id: ObjectId(userId.toString()) });
+    return db.collection(TABLE).findOne({ _id: ObjectId(userId.toString()) }, { fields: { password: false }});
 }
 
 /**

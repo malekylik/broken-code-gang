@@ -61,10 +61,16 @@ class App extends Component {
         this.loadApp()
         .catch ((e)=>{
             console.log(e);
-        }).then((isUser) => {
-               if (isUser){
+        }).then((user) => {
+               if (user){
                 api.onMessage(onMessage);
                 api.onCreateRoom(onCreateRoom);
+
+                this.props.dispatch({
+                    type: 'USER_SIGN_IN',
+                    _id: user._id,
+                    curUserInfo: user,
+                });
 
                 this.props.dispatch(routeNavigation({
                     page: 'chat_list',

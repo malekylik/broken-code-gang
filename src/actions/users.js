@@ -1,6 +1,6 @@
 const updateLastUser = (user) => ({
     type: 'USERS_UPDATE_LAST_USER',
-    newUser: user,
+    newUsers: user,
 });
 
 export default updateLastUser;

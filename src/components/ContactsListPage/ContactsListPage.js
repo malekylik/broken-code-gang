@@ -25,7 +25,6 @@ export class ContactsListPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            loading: true,
             searchTerm: '',
             displayedContacts: this.props.users
         };
@@ -37,6 +36,12 @@ export class ContactsListPage extends Component {
 
     fetch() {
         return this.props.dispatch(fetchUsers());
+    }
+
+    componentDidMount() {
+        this.props.dispatch({ type: 'USERS_RESET' });
+
+        fetchUsers();
     }
 
     componentWillReceiveProps(props) {
@@ -92,7 +97,6 @@ export class ContactsListPage extends Component {
             } else if (commonRoom.length === 1) {
                 enterRoom(commonRoom[0]._id);
             }
-
         }
 
         let currentUserRooms = [];

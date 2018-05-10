@@ -22,7 +22,7 @@ export default function users(state, action) {
         return {
             ...state,
             items: [],
-            next: null,
+            next: true,
         };
     case 'USERS_UPDATE_LAST_USER': 
         return {

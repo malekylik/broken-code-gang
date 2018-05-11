@@ -39,3 +39,49 @@
     color: #E05345;
     font-weight: bold;
 }
+
+.GroupChatSettings__inputs {
+    padding: 5px 10px 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.GroupChatSettings__input {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.GroupChatSettings__input > label {
+    color: #46454C;
+    margin-bottom: 7px;
+}
+
+.GroupChatSettings__input > input {
+    height: 32px;
+    padding: 5px;
+    color: #333;
+    padding-left: 10px;
+    border-radius: 12px;
+    box-sizing: border-box;
+    border: #F13564 solid 4px;
+}
+
+.GroupChatSettings__input > * {
+    font-weight: bold;
+}
+
+.GroupChatSettings__save-button {
+    width: 55%;
+    max-width: 500px;
+    min-height: 30px;
+    background: #F13564;
+    -webkit-box-shadow: 0 13px 25px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: 0 13px 25px 0 rgba(0, 0, 0, 0.12);
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 15px;
+    color: #FFFFFF;
+}

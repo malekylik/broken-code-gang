@@ -49,7 +49,9 @@ export const ChatListPage = connect(stateToProps)(class ChatListPage extends Rea
     }
 
     componentWillUnmount() {
-        this.didMountFetch.cancel();
+        if (this.didMountFetch) {
+            this.didMountFetch.cancel();
+        }
     }
 
     fetch() {

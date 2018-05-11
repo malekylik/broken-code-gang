@@ -6,8 +6,8 @@ import { ConnectedHeader } from '../Header/Header';
 import { connect } from 'react-redux';
 import leaveRoom from '../../actions/leaveRoom';
 import routeNavigation from '../../actions/route';
-import fetchUsers from '../../actions/fetchUsers';
 import api from '../../api';
+import makeCancelable from '../../helpers/cancelablePromise';
 
 const stateToProps = state => ({
     chatInfo: state.route.payload,
@@ -21,24 +21,66 @@ class GroupChatSettings extends Component {
 
         this.state = {
             chatName: props.chatInfo.chatName,
+            loading: false,
         };
+
+        this.updateSetting = {};
 
         this.inputChangeHandler = this.inputChangeHandler.bind(this);
         this.submitHandle = this.submitHandle.bind(this);
+        this.onClickAddNewUser = this.addNewUserToChat.bind(this);
+        this.onClickExit = this.removeUserFromChat.bind(this);
     }
 
     inputChangeHandler(e) {
-        this.setState({ chatName: e.target.value });
+        if (e.target.name === 'name') {
+            this.setState({ chatName: e.target.value });
+        }
+
+        this.updateSetting[e.target.name] = e.target.value;
     }
 
     submitHandle(e) {
         e.preventDefault();
     
-        api.updateRoom(this.props.chatInfo.currentRoom, { name: this.state.chatName });
+        this.setState({ loading: true });
+
+        this.didMountFetch = makeCancelable(api.updateRoom(this.props.chatInfo.currentRoom, this.updateSetting));
+
+        this.didMountFetch.promise
+        .then(() => {
+            this.setState({ loading: false });
+            this.updateSetting = {};
+        });
+    }
+
+    componentWillUnmount() {
+        if (this.didMountFetch) {
+            this.didMountFetch.cancel();
+        }
+    }
+
+    addNewUserToChat() {
+        this.props.dispatch(routeNavigation({
+            page: 'add_new_user_to_chat_page',
+            payload: {
+                prevPage: 'chat_settings',
+                prevPrevPage: this.props.chatInfo.prevPage,
+                prevPrevPrevPage: this.props.chatInfo.prevPrevPage,
+            }
+        }));
+    }
+
+    removeUserFromChat() {
+        this.props.dispatch(leaveRoom(this.props.chatInfo.currentRoom));
+    }
+
+    openUserMenu(contactId){
+        /*Здесь меню действий над пользователем в групповом чате*/
     }
 
     render() {
-        console.dir(this.props);
+        const membersQuan = this.props.chatInfo.chatUsers.length;
 
         return (
             <div className="GroupChatSettings">
@@ -49,82 +91,35 @@ class GroupChatSettings extends Component {
                     </div>
                 </section>
                 <form onSubmit={this.submitHandle} className="GroupChatSettings__inputs">
-                    <label htmlFor='chat-name'>Chat Name:</label>
-                    <input id='chat-name' type='text' value={this.state.chatName} onChange={this.inputChangeHandler} />
-                    <input type='submit' />
+                    <p className="GroupChatSettings__input">
+                        <label htmlFor='chat-name'>Chat Name:</label>
+                        <input id='chat-name' type='text' name='name' value={this.state.chatName} onChange={this.inputChangeHandler} />
+                    </p>
+                    {this.state.loading && (
+                    <div className="spinner">
+                        <div className="rect1" />
+                        <div className="rect2" />
+                        <div className="rect3" />
+                        <div className="rect4" />
+                        <div className="rect5" />
+                    </div>
+                )}
+                    <input className="GroupChatSettings__save-button" value='Сохранить' type='submit' />
                 </form>
-                {/* <section className="GroupChatSettings__section">
+                <section className="GroupChatSettings__section">
                     <h4 className="GroupChatSettings__section__title">Members ({membersQuan})</h4>
                     <LinkBtn className="GroupChatSettings__exit" btnText="Добавить участника"
-                             onclick={onClickAddNewUser}/>
+                             onclick={this.onClickAddNewUser}/>
                     <UserList
-                        users={props.payload.chatUsers} handleClick={handleClick}
+                        users={this.props.chatInfo.chatUsers} handleClick={this.openUserMenu}
                     />
                 </section>
                 <section className="GroupChatSettings__section">
-                    <LinkBtn className="GroupChatSettings__exit" btnText="Exit" onclick={onClickExit}/>
-                </section> */}
+                    <LinkBtn className="GroupChatSettings__exit" btnText="Exit" onclick={this.onClickExit}/>
+                </section>
             </div>
         );
     }
-}
-
-
-// export const GroupChatSettings = connect(stateToProps)(
-//     (props, dispatch) => {
-//         const membersQuan = props.payload.chatUsers.length,
-//             groupName = 'BCG',
-//             onClickExit = removeUserFromChat.bind(props),
-//             fetchNext = props.dispatch.bind(props, fetchUsers()),
-//             onClickAddNewUser = addNewUserToChat.bind(props, fetchNext),
-//             handleClick = openUserMenu.bind(props);
-
-//         return (
-//             <div className="GroupChatSettings">
-//                 <section className="GroupChatSettings__section">
-//                     <div className="">
-//                         <ConnectedHeader contentTitle={groupName} contentDesc="" buttonBack buttonSearch={false}
-//                                          buttonSettings={false} contentType="chat"/>
-//                     </div>
-//                 </section>
-//                 <form onSubmit={submitHandle} className="GroupChatSettings__inputs">
-//                     <input type='text' />
-//                     <input type='submit' />
-//                 </form>
-//                 <section className="GroupChatSettings__section">
-//                     <h4 className="GroupChatSettings__section__title">Members ({membersQuan})</h4>
-//                     <LinkBtn className="GroupChatSettings__exit" btnText="Добавить участника"
-//                              onclick={onClickAddNewUser}/>
-//                     <UserList
-//                         users={props.payload.chatUsers} handleClick={handleClick}
-//                     />
-//                 </section>
-//                 <section className="GroupChatSettings__section">
-//                     <LinkBtn className="GroupChatSettings__exit" btnText="Exit" onclick={onClickExit}/>
-//                 </section>
-//             </div>
-//         );
-//     });
-
-function removeUserFromChat() {
-    this.dispatch(leaveRoom(this.payload.currentRoom));
-}
-
-function addNewUserToChat() {
-    this.dispatch(routeNavigation({
-        page: 'add_new_user_to_chat_page',
-        payload: {
-            prevPage: 'chat_settings',
-            prevPrevPage: this.payload.prevPage,
-            prevPrevPrevPage: this.payload.prevPrevPage,
-        }
-    }));
-}
-
-
-
-function openUserMenu(contactId){
-    /*Здесь меню действий над пользователем в групповом чате*/
 }
 
 export const ConnectedGroupChatSettings = connect(stateToProps)(GroupChatSettings);

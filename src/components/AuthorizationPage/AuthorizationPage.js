@@ -58,7 +58,7 @@ export const AuthorizationPage = connect()(
 
         submitHandler(e) {
             e.preventDefault();
-            const { login: { value: login }, password: { value: password} , name: { value: name} } = this.state.inputs;
+            const { login: { value: login }, password: { value: password } , name: { value: name} } = this.state.inputs;
 
             let inputs = this.state.inputs;
             let fieldError;

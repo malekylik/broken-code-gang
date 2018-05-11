@@ -49,7 +49,7 @@ export class InfiniteScroll extends React.Component {
         let containerHeight = this.container.children && this.container.children[0] && this.container.children[0].clientHeight,
             scrollTop = document.body.scrollTop || document.documentElement.scrollTop,
             windowHeight = window.innerHeight;
-            
+
         if (this.props.scrollDirection === 'up' && scrollTop < THRESHOLD && this.props.next) {
             document.documentElement.scrollTop = 1.01 * THRESHOLD;
             this.nextPage();
@@ -74,6 +74,15 @@ export class InfiniteScroll extends React.Component {
         return (
             <div className="InfiniteScroll" ref={(container) => this.container = container}>
                 {this.props.children}
+                {this.state.loading && (
+                    <div className="spinner">
+                        <div className="rect1" />
+                        <div className="rect2" />
+                        <div className="rect3" />
+                        <div className="rect4" />
+                        <div className="rect5" />
+                    </div>
+                )}
             </div>
         );
     }

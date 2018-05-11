@@ -1,9 +1,10 @@
-.ContactsListPage .UserList {
+.ContactsListPage {
     padding-top: 50px;
-    padding-bottom: 30px;
+    padding-bottom: 45px;
 }
 
 .ContactsListPage .Header {
+    top: 0;
     position: fixed;
 }
 

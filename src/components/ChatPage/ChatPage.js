@@ -95,9 +95,6 @@ export class ChatPage extends Component {
         let chatInfo = this.state.chatInfo;
         if (chatInfo) {
             contentTitle = chatInfo.name;
-            if (contentTitle.split(' ').includes(this.props.curUserInfo.name)) {
-                contentTitle = contentTitle.replace(this.props.curUserInfo.name, '');
-            }
             if (chatInfo.users.length === 1){
                 contentDesc = '';
             } else {

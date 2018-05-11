@@ -26,7 +26,7 @@ export class ContactsListPage extends Component {
         super(props);
         this.state = {
             searchTerm: '',
-            displayedContacts: this.props.users
+            displayedContacts: this.props.users,
         };
         this.fetch = this.fetch.bind(this);
         this.handleClick = this.handleClick.bind(this);

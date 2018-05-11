@@ -36,8 +36,6 @@ export class UserList extends Component {
                     }}
                     onclick={this.clickHandler.bind(this)}
                 />));
-        } else {
-            userListContent = <div className="UserList__empty"><p>No contacts here yet...</p></div>;
         }
 
         return (

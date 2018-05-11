@@ -47,9 +47,6 @@ export const ChatList = connect(stateToProps)(class ChatList extends React.Compo
                         description = room.lastMessage.message;
                         timestamp = createDateStamp(date);
                     }
-                    if (roomName.split(' ').includes(this.props.curUserInfo.name)) {
-                        roomName = roomName.replace(this.props.curUserInfo.name, '');
-                    }
 
                     return (<InstanceSummaryElement
                         key={room._id}

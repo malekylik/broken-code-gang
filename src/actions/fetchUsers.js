@@ -5,7 +5,6 @@ export default function fetchUsers() {
         try {
             const users = await api.getUsers({ 
                 ...getState().users.next, 
-                order: { $natural : -1 },
             });
             const { items, next } = users;
             const end = !!(next);

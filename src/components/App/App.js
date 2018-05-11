@@ -8,7 +8,7 @@ import { AddRoomPage } from '../AddRoomPage/AddRoomPage';
 import { ConnectedChatPage } from '../ChatPage/ChatPage';
 import { ConnectedUserPage } from '../UserPage/UserPage';
 import { ConnectedContactsListPage } from '../ContactsListPage/ContactsListPage';
-import { GroupChatSettings } from '../GroupChatSettings/GroupChatSettings';
+import { ConnectedGroupChatSettings } from '../GroupChatSettings/GroupChatSettings';
 import { ConnectedUserList } from '../UserList/UserList';
 import { ConnectedAddUserToChatPage } from '../AddUserToChatPage/AddUserToChatPage';
 import onMessage from '../../server-listeners/onMessage';
@@ -40,7 +40,7 @@ const routeConfig = {
         view: ConnectedUserPage,
     },
     'chat_settings': {
-        view: GroupChatSettings,
+        view: ConnectedGroupChatSettings,
     },
     'add_new_user_to_chat_page':{
         view: ConnectedAddUserToChatPage,

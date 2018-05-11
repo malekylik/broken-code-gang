@@ -15,6 +15,11 @@ module.exports = {
     LOGOUT_CURRENT_USER: 'LOGOUT_CURRENT_USER',
 
     /**
+     * Update room
+     */
+    UPDATE_ROOM: 'UPDATE_ROOM',
+
+    /**
      * Return list of all users
      */
     USERS: 'USERS',

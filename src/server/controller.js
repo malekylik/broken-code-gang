@@ -1,6 +1,6 @@
 const { findUserBySid, getUsers, addUser, addPushInfoUser , setCurrentUser, logoutUser } = require('./database/user');
 const {
-    joinRoom, leaveRoom, getRooms, getUserRooms, createRoom, getRoom, dropRoom
+    joinRoom, leaveRoom, getRooms, getUserRooms, createRoom, getRoom, dropRoom, updateRoom
 } = require('./database/room');
 const { getMessages, sendMessage } = require('./database/messages');
 const { getSessionInfoById } = require('./database/session');
@@ -144,6 +144,11 @@ module.exports = function (db, io) {
         // Receive current user information
         requestResponse(TYPES.CURRENT_USER, async () => {
             return await CurrentUser();
+        });
+
+        // Update room
+        requestResponse(TYPES.UPDATE_ROOM, async (room) => {
+            return await updateRoom(db ,room);
         });
 
         // Return list of all users with

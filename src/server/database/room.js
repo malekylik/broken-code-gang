@@ -187,6 +187,27 @@ async function leaveRoom(db, { roomId, userId }) {
     return room;
 }
 
+/**
+ * @param {Db} db
+ * @param {string} roomId
+ * @param {*} [payload] any requested data
+ *
+ * @return {Promise<Room>}
+ */
+async function updateRoom(db, { roomId, payload }) {
+    if (!roomId) {
+        throw new Error('You must specify roomId to join');
+    }
+
+    let collection = db.collection(TABLE);
+
+    // Save users to database
+    await collection.updateOne({ _id: ObjectId(roomId.toString()) }, { $set: payload });
+    const room = await getRoom(db, roomId);
+
+    return room;
+}
+
 module.exports = {
     saveRoom,
     getRooms,
@@ -195,5 +216,6 @@ module.exports = {
     getRoom,
     joinRoom,
     leaveRoom,
-    dropRoom
+    dropRoom,
+    updateRoom,
 };

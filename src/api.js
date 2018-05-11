@@ -248,6 +248,18 @@ class Api {
     }
 
     /**
+     * Current user leave the room
+     *
+     * @param {string} roomId
+     *
+     * @return {Promise<Room>}
+     * @param {*} [payload] any requested data
+     */
+    async updateRoom(roomId, payload = {}) {
+        return this._requestResponse(MESSAGES.UPDATE_ROOM, { roomId, payload });
+    }
+
+    /**
      * Remove user from room
      *
      * @param {string} roomId

@@ -54,16 +54,24 @@ export class ChatPage extends Component {
                 ...this.props.payload,
                 prevPrevPage:'chat_list',
                 prevPage: 'chat_page',
-                chatUsers:users.items,
+                chatUsers: users.items,
+                chatName: room.name,
             }
         }));
     }
 
     componentDidUpdate() {
         if (this.props.messages.items[this.props.messages.items.length - 1] !== this.lastMessage) {
+            if (document.documentElement.scrollHeight - document.documentElement.scrollTop < 600 || !this.lastMessage) {
+                document.documentElement.scrollTop = document.documentElement.scrollHeight;
+            }
+
             this.lastMessage = this.props.messages.items[this.props.messages.items.length - 1];
-            document.documentElement.scrollTop = document.documentElement.scrollHeight;
         }
+    }
+
+    componentDidMount() {
+        document.documentElement.scrollTop = document.documentElement.scrollHeight;
     }
     
     render() {
